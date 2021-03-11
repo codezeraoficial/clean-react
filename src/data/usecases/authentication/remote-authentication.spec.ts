@@ -3,7 +3,7 @@ import { HttpPostClientSpy } from '@/data/test/mock-http-client'
 import { RemoteAuthentication } from './remote-authentication'
 import { UnexpectedError, InvalidCredentialsError } from '@/domain/errors'
 import { mockAccountModel, mockAuthentication } from '@/domain/test'
-import { AuthenticationParams } from '@/domain/usecases/authentication'
+import { AuthenticationParams } from '@/domain/usecases'
 import { AccountModel } from '@/domain/models'
 import faker from 'faker'
 
