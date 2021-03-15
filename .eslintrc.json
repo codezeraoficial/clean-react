@@ -20,6 +20,8 @@
     "@typescript-eslint/comma-spacing": "off",
     "@typescript-eslint/return-await": "off",
     "@typescript-eslint/no-namespace": "off",
+    "@typescript-eslint/triple-slash-reference": "off",
+    "react/prop-types": "off",
     "no-redeclare": "off",
     "import/export": "off",
     "react/jsx-uses-react": "error",

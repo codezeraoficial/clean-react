@@ -1,0 +1,25 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  border-top: 40px solid $color-primary-dark;
+  background-color: $color-primary;
+  height: 170px;
+  width: 100%;
+  @include flexbox;
+
+  nav {
+    @include flexbox;
+    flex-direction: column;
+
+    h1 {
+      color: $color-white;
+      font-size: 1rem;
+    }
+
+    svg {
+      width: 60px;
+    }
+  }
+}

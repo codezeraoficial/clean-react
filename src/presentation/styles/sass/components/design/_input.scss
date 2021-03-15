@@ -1,0 +1,51 @@
+.input-container {
+  position: relative;
+  width: 100%;
+
+  margin-bottom: 20px;
+  
+  input {
+    border: 0;
+    border-bottom: 2px solid $color-grey-dark;
+    outline: none;
+    transition: 0.2s ease-in-out;
+    box-sizing: border-box;
+    padding: 0 14px;
+  }
+
+  label {
+    padding: 0 14px;
+
+    top: 0;
+    left: 0;
+    right: 0;
+    color: $color-grey;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    font-size: 1rem;
+    cursor: text;
+    transition: 0.2s ease-in-out;
+    box-sizing: border-box;
+  }
+
+  input,
+  label {
+    width: 100%;
+    height: 3rem;
+    font-size: 1rem;
+  }
+
+  input:valid,
+  input:focus {
+    border-bottom: 2px solid $color-primary;
+  }
+
+  input:valid + label,
+  input:focus + label {
+    color: $color-primary;
+    font-size: 0.8rem;
+    top: -30px;
+    pointer-events: none;
+  }
+}

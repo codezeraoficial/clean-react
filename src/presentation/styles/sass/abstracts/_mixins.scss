@@ -1,0 +1,22 @@
+@mixin  flexbox{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin  scrollBar{
+  
+  &::-webkit-scrollbar {
+    width: 4px;      
+  }
+
+  &::-webkit-scrollbar-track {
+    border-radius: 20px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.38);
+    border-radius: 20px;
+  }
+  
+}
