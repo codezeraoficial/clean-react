@@ -8,9 +8,12 @@ type InputProps = {
   onChange: ChangeEventHandler<HTMLInputElement>
 }
 const Input: React.FC<InputProps> = ({ label, name, value, required, onChange }) => {
+  const enableInput = (event: React.FocusEvent<HTMLInputElement>): void => {
+    event.target.readOnly = false
+  }
   return (
     <div className="input-container">
-      <input id={name} className="input" type={name} pattern=".+" required={required} value={value} onChange={onChange}/>
+      <input readOnly onFocus={enableInput} id={name} className="input" type={name} pattern=".+" required={required} value={value} onChange={onChange}/>
       <label className="label" htmlFor={name}>{label}</label>
     </div>
   )
