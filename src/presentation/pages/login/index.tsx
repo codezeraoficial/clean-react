@@ -1,9 +1,6 @@
 
 import React from 'react'
-import Header from '@/presentation/components/design/header'
-import Footer from '@/presentation/components/design/footer'
-import Input from '@/presentation/components/design/input'
-import Button from '@/presentation/components/design/button'
+import { Button, Footer, Header, Input } from '@/presentation/components/design'
 
 const Login: React.FC = () => {
   return (
