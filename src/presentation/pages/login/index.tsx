@@ -4,21 +4,21 @@ import { Button, Footer, Header, Input } from '@/presentation/components/design'
 import { FormStatus } from '@/presentation/components'
 import Context from '@/presentation/contexts/form/form-context'
 
-type StateProps = {
-  isLoading: boolean
-  errorMessage: string
-}
-
 const Login: React.FC = () => {
-  const [state] = useState<StateProps>({
+  const [state] = useState({
     isLoading: false,
     errorMessage: ''
+  })
+  const [errorState] = useState({
+    email: 'Campo obrigatório',
+    password: 'Campo obrigatório',
+    main: ''
   })
 
   return (
     <div>
       <Header />
-      <Context.Provider value={state}>
+      <Context.Provider value={{ state, errorState }}>
         <div className="login">
           <form action="">
             <h2>Login</h2>
