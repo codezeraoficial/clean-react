@@ -1,0 +1,12 @@
+.formStatus{
+  @include flexbox;
+  flex-direction: column;
+  
+  span{
+    margin-top: 20px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-align: center;
+    margin-left: 20px;
+  }
+}

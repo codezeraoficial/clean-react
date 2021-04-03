@@ -6,8 +6,11 @@
 
 @import "./components/page/login";
 
-@import "./components/design/header";
-@import "./components/design/footer";
 
-@import "./components/design/input";
 @import "./components/design/button";
+@import "./components/design/footer";
+@import "./components/design/header";
+@import "./components/design/input";
+@import "./components/design/spinner";
+
+@import "./components/login/form-status";
