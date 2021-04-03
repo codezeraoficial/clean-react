@@ -9,4 +9,13 @@
   font-weight: 600;
   box-shadow: $box-shadow;
   text-transform: uppercase;
+
+  &:disabled{
+    background-color: $color-disabled-background;
+    color: $color-disabled-color;
+
+    &:hover{
+      opacity: 1;
+    }
+  }
 }
