@@ -1,6 +1,6 @@
 import React from 'react'
 import Head from 'next/head'
-import Login from '@/presentation/pages/login'
+import { Login } from '@/presentation/pages'
 
 const Home: React.FC = () => {
   return (

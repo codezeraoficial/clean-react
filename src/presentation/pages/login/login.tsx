@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react'
 import { Button, Footer, Header, Input } from '@/presentation/components/design'
-import { FormStatus } from '@/presentation/components'
+import FormStatus from '@/presentation/components/login/form-status'
 import Context from '@/presentation/contexts/form/form-context'
 
 const Login: React.FC = () => {
