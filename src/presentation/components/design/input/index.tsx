@@ -1,18 +1,22 @@
-import React, { ChangeEventHandler, useContext } from 'react'
+import React, { DetailedHTMLProps, InputHTMLAttributes, useContext } from 'react'
 import Context from '@/presentation/contexts/form/form-context'
 
-type InputProps = {
-  value: number | string
-  name: string
+type Props = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> &{
   label: string
-  required?: boolean
-  onChange: ChangeEventHandler<HTMLInputElement>
 }
-const Input: React.FC<InputProps> = ({ label, name, value, required, onChange }) => {
-  const { errorState } = useContext(Context)
-  const error = errorState[name]
+
+const Input: React.FC<Props> = ({ label, ...props }) => {
+  const { state, setState } = useContext(Context)
+  const error = state[`${props.name}Error`]
+
   const enableInput = (event: React.FocusEvent<HTMLInputElement>): void => {
     event.target.readOnly = false
+  }
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    setState({
+      ...state,
+      [event.target.name]: event.target.value
+    })
   }
 
   const getLabel = (): string => {
@@ -22,10 +26,11 @@ const Input: React.FC<InputProps> = ({ label, name, value, required, onChange })
   const getTitle = (): string => {
     return error
   }
+
   return (
     <div className="input-container">
-      <input readOnly onFocus={enableInput} id={name} className="input" type={name} pattern=".+" required={required} value={value} onChange={onChange} />
-      <label data-testid={`${name}-status`} title={getTitle()} className="label" htmlFor={name}>{getLabel()}</label>
+      <input {...props} data-testid={props.name} readOnly onFocus={enableInput} className="input" onChange={handleChange} />
+      <label data-testid={`${props.name}-status`} title={getTitle()} className="label" htmlFor={props.name}>{getLabel()}</label>
     </div>
   )
 }
