@@ -6,7 +6,7 @@ const FormStatus: React.FC = () => {
   const { state: { isLoading, mainError } } = useContext(Context)
   return (
     <div data-testid="error-wrap" className="formStatus">
-      {isLoading && <CircularProgress size={20}/>}
+      {isLoading && <CircularProgress size={20} data-testid="spinner"/>}
       {mainError && <span>{mainError}</span>}
     </div>
   )
