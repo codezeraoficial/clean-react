@@ -44,7 +44,7 @@ const Input: React.FC<Props> = ({ label, ...props }) => {
           'data-testid': `${props.name}`
         }}
         InputProps={{
-          endAdornment: (
+          endAdornment: error && (
             <InputAdornment position="end">
               <Error style={{ fill: '#ff0033' }}/>
             </InputAdornment>
