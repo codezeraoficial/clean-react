@@ -39,6 +39,7 @@ const Input: React.FC<Props> = ({ label, ...props }) => {
         fullWidth
         label={getLabel()}
         variant="outlined"
+        error={error}
         inputProps={{
           'data-testid': `${props.name}`
         }}
@@ -51,7 +52,7 @@ const Input: React.FC<Props> = ({ label, ...props }) => {
         }}
         {...props}
       />
-      <FormHelperText data-testid={`${props.name}-status`}>{getError()}</FormHelperText>
+      <FormHelperText data-testid={`${props.name}-status`}>{error ? getError() : 'Tudo certo!'}</FormHelperText>
     </FormControl>
   )
 }
