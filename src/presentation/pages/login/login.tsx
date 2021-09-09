@@ -14,13 +14,17 @@ const Login: React.FC<Props> = ({ validation }) => {
     isLoading: false,
     email: '',
     password: '',
-    emailError: 'Campo obrigatório',
+    emailError: '',
     passwordError: 'Campo obrigatório',
     mainError: ''
   })
 
   useEffect(() => {
     if (validation) {
+      setState({
+        ...state,
+        emailError: validation.validate('email', state.email)
+      })
       validation.validate('email', state.email)
     }
   }, [state.email])
@@ -44,7 +48,7 @@ const Login: React.FC<Props> = ({ validation }) => {
             <label htmlFor="create">
               <p>Não tem uma conta? <a href="#"><span>crie aqui</span></a></p>
             </label>
-            <FormStatus/>
+            <FormStatus />
           </form>
         </div>
       </Context.Provider>
