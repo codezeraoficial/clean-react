@@ -1,24 +1,12 @@
 import React from 'react'
 import { render, RenderResult, fireEvent, cleanup } from '@testing-library/react'
-import '@testing-library/jest-dom/extend-expect'
+import { ValidationSpy } from '@/presentation/test'
 import Login from './login'
-import { Validation } from '@/presentation/protocols/validation'
+import '@testing-library/jest-dom/extend-expect'
 
 type SutTypes = {
   sut: RenderResult
   validationSpy: ValidationSpy
-}
-
-class ValidationSpy implements Validation {
-  errorMessage: string
-  fieldName: string
-  fieldValue: string
-
-  validate (fieldName: string, fieldValue: string): string {
-    this.fieldName = fieldName
-    this.fieldValue = fieldValue
-    return this.errorMessage
-  }
 }
 
 const makeSut = (): SutTypes => {
