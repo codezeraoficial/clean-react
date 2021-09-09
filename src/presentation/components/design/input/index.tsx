@@ -39,7 +39,7 @@ const Input: React.FC<Props> = ({ label, ...props }) => {
         fullWidth
         label={getLabel()}
         variant="outlined"
-        error={error}
+        error={!!error}
         inputProps={{
           'data-testid': `${props.name}`
         }}
