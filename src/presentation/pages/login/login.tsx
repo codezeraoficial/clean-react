@@ -6,6 +6,7 @@ import Context from '@/presentation/contexts/form/form-context'
 import { Validation } from '@/presentation/protocols/validation'
 import { Grid } from '@material-ui/core'
 import { Authentication } from '@/domain/usecases'
+import Cookies from 'js-cookie'
 
 type Props = {
   validation: Validation
@@ -39,10 +40,11 @@ const Login: React.FC<Props> = ({ validation, authentication }) => {
         return
       }
       setState({ ...state, isLoading: true })
-      await authentication.auth({
+      const account = await authentication.auth({
         email: state.email,
         password: state.password
       })
+      Cookies.set('accessToken', account.accessToken)
     } catch (error) {
       setState({ ...state, isLoading: false, mainError: error.message })
     }
