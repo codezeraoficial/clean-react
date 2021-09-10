@@ -46,6 +46,7 @@ const Login: React.FC<Props> = ({ validation, authentication }) => {
         password: state.password
       })
       Cookies.set('accessToken', account.accessToken)
+      Router.replace('/')
     } catch (error) {
       setState({ ...state, isLoading: false, mainError: error.message })
     }
