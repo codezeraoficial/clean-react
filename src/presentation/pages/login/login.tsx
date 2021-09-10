@@ -4,9 +4,10 @@ import { Button, Footer, Header, Input } from '@/presentation/components/design'
 import FormStatus from '@/presentation/components/login/form-status'
 import Context from '@/presentation/contexts/form/form-context'
 import { Validation } from '@/presentation/protocols/validation'
-import { Grid } from '@material-ui/core'
+import { Grid, Link } from '@material-ui/core'
 import { Authentication } from '@/domain/usecases'
 import Cookies from 'js-cookie'
+import Router from 'next/router'
 
 type Props = {
   validation: Validation
@@ -61,7 +62,7 @@ const Login: React.FC<Props> = ({ validation, authentication }) => {
             <Input type="password" name="password" label="Senha" required />
             <Button label="Entrar" />
             <label htmlFor="create">
-              <p>Não tem uma conta? <a href="#"><span>crie aqui</span></a></p>
+              <p>Não tem uma conta? <Link data-testid="signup" onClick={async () => Router.push('/signup')}><span>Crie aqui</span></Link></p>
             </label>
             <FormStatus />
           </form>
