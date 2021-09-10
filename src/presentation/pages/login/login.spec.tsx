@@ -6,6 +6,7 @@ import { render, RenderResult, fireEvent, cleanup, waitFor } from '@testing-libr
 import { ValidationStub, AuthenticationSpy } from '@/presentation/test'
 import Login from './login'
 import { InvalidCredentialsError } from '@/domain/errors'
+import Router from 'next/router'
 
 type SutTypes = {
   sut: RenderResult
@@ -20,7 +21,9 @@ const makeSut = (params?: SutParams): SutTypes => {
   const validationStub = new ValidationStub()
   const authenticationSpy = new AuthenticationSpy()
   validationStub.errorMessage = params?.validationError
-  const sut = render(<Login validation={validationStub} authentication={authenticationSpy} />)
+  const sut = render(
+    <Login validation={validationStub} authentication={authenticationSpy} />
+  )
   return {
     sut,
     authenticationSpy
@@ -51,11 +54,10 @@ const simulateStatusForField = (sut: RenderResult, fieldName: string, validation
   expect(status.textContent).toBe(validationError || 'Tudo certo!')
 }
 
+jest.mock('next/router', () => ({ push: jest.fn() }))
+
 describe('Login Component', () => {
   afterEach(cleanup)
-  beforeEach(() => {
-    localStorage.clear()
-  })
 
   test('Should start with initial state ', () => {
     const validationError = faker.random.words()
@@ -155,5 +157,13 @@ describe('Login Component', () => {
     simulateValidSubmit(sut)
     await waitFor(() => sut.getByTestId('form'))
     expect(setSpy).toHaveBeenCalledWith('accessToken', authenticationSpy.account.accessToken)
+    setSpy.mockRestore()
+  })
+
+  test('Should go to signup page', async () => {
+    const { sut } = makeSut()
+    const signup = sut.getByTestId('signup')
+    fireEvent.click(signup)
+    expect(Router.push).toHaveBeenCalledWith('/signup')
   })
 })
