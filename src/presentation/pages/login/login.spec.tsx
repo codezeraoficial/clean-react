@@ -54,7 +54,7 @@ const simulateStatusForField = (sut: RenderResult, fieldName: string, validation
   expect(status.textContent).toBe(validationError || 'Tudo certo!')
 }
 
-jest.mock('next/router', () => ({ push: jest.fn() }))
+jest.mock('next/router', () => ({ push: jest.fn(), replace: jest.fn(), route: '/login' }))
 
 describe('Login Component', () => {
   afterEach(cleanup)
@@ -157,6 +157,7 @@ describe('Login Component', () => {
     simulateValidSubmit(sut)
     await waitFor(() => sut.getByTestId('form'))
     expect(setSpy).toHaveBeenCalledWith('accessToken', authenticationSpy.account.accessToken)
+    expect(Router.replace).toHaveBeenCalledWith('/')
     setSpy.mockRestore()
   })
 
