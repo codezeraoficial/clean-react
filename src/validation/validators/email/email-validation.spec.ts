@@ -1,4 +1,4 @@
-import { InvalidFieldValidation } from '@/validation/errors'
+import { InvalidFieldError } from '@/validation/errors'
 import faker from 'faker'
 import { EmailValidation } from './email-validation'
 
@@ -8,7 +8,7 @@ describe('EmailValidation', () => {
   test('Should return error if email is invalid', () => {
     const sut = makeSut()
     const error = sut.validate(faker.random.word())
-    expect(error).toEqual(new InvalidFieldValidation('email'))
+    expect(error).toEqual(new InvalidFieldError('email'))
   })
 
   test('Should return falsy if email is valid', () => {
