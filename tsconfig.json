@@ -23,7 +23,7 @@
         "*"
       ]
     },
-    "isolatedModules": true
+    "isolatedModules": false
   },
   "include": [
     "next-env.d.ts",
