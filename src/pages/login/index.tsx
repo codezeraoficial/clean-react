@@ -1,6 +1,6 @@
 import React from 'react'
 import Head from 'next/head'
-import { Login } from '@/presentation/pages'
+import { MakeLogin } from '@/main/factories/pages/login/login-factory'
 
 const Home: React.FC = () => {
   return (
@@ -8,7 +8,7 @@ const Home: React.FC = () => {
       <Head>
         <title>4Devs - Login</title>
       </Head>
-      <Login/>
+      <MakeLogin/>
     </>
   )
 }
