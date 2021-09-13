@@ -4,7 +4,7 @@ import Cookies from 'js-cookie'
 import faker from 'faker'
 import { render, RenderResult, fireEvent, cleanup, waitFor } from '@testing-library/react'
 import { ValidationStub, AuthenticationSpy } from '@/presentation/test'
-import Login from './login'
+import { Login } from '@/presentation/pages'
 import { InvalidCredentialsError } from '@/domain/errors'
 import Router from 'next/router'
 
