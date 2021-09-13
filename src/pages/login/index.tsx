@@ -2,7 +2,7 @@ import React from 'react'
 import Head from 'next/head'
 import { MakeLogin } from '@/main/factories/pages/login/login-factory'
 
-const Home: React.FC = () => {
+const Login: React.FC = () => {
   return (
     <>
       <Head>
@@ -13,4 +13,4 @@ const Home: React.FC = () => {
   )
 }
 
-export default Home
+export default Login
