@@ -5,7 +5,6 @@ import faker from 'faker'
 import { render, RenderResult, fireEvent, cleanup, waitFor } from '@testing-library/react'
 import { ValidationStub, AuthenticationSpy } from '@/presentation/test'
 import { Login } from '@/presentation/pages'
-import { InvalidCredentialsError } from '@/domain/errors'
 import Router from 'next/router'
 
 type SutTypes = {
@@ -61,11 +60,6 @@ const testErrorWrapChildCount = (sut: RenderResult, count: number): void => {
 const testElementExists = (sut: RenderResult, fieldName: string): void => {
   const el = sut.getByTestId(fieldName)
   expect(el).toBeTruthy()
-}
-
-const testElementText = (sut: RenderResult, fieldName: string, text: string): void => {
-  const el = sut.getByTestId(fieldName)
-  expect(el.textContent).toBe(text)
 }
 
 const testButtonIsDisabled = (sut: RenderResult, fieldName: string, isDisabled: boolean): void => {
@@ -151,15 +145,6 @@ describe('Login Component', () => {
     const { sut, authenticationSpy } = makeSut({ validationError })
     await simulateValidSubmit(sut)
     expect(authenticationSpy.callsCount).toBe(0)
-  })
-
-  test('Should present error if Authentication fails', async () => {
-    const { sut, authenticationSpy } = makeSut()
-    const error = new InvalidCredentialsError()
-    jest.spyOn(authenticationSpy, 'auth').mockReturnValueOnce(Promise.reject(error))
-    await simulateValidSubmit(sut)
-    testElementText(sut, 'main-error', error.message)
-    testErrorWrapChildCount(sut, 1)
   })
 
   test('Should add accessToken to cookies on success', async () => {
