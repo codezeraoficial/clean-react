@@ -6,6 +6,7 @@ import { render, RenderResult, fireEvent, cleanup, waitFor } from '@testing-libr
 import { ValidationStub, AuthenticationSpy } from '@/presentation/test'
 import { Login } from '@/presentation/pages'
 import Router from 'next/router'
+import { InvalidCredentialsError } from '@/domain/errors'
 
 type SutTypes = {
   sut: RenderResult
@@ -120,6 +121,14 @@ describe('Login Component', () => {
     const { sut } = makeSut()
     await simulateValidSubmit(sut)
     testElementExists(sut, 'spinner')
+  })
+
+  test('Should show error on alert if Authentication fails', async () => {
+    const { sut, authenticationSpy } = makeSut()
+    const error = new InvalidCredentialsError()
+    jest.spyOn(authenticationSpy, 'auth').mockReturnValueOnce(Promise.reject(error))
+    await simulateValidSubmit(sut)
+    testElementExists(sut, 'alert-message')
   })
 
   test('Should call Authetication with correct values', async () => {
