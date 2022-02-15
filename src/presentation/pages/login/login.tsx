@@ -5,16 +5,16 @@ import FormStatus from '@/presentation/components/login/form-status'
 import Context from '@/presentation/contexts/form/form-context'
 import { Validation } from '@/presentation/protocols/validation'
 import { Grid, Link } from '@material-ui/core'
-import { Authentication } from '@/domain/usecases'
-import Cookies from 'js-cookie'
+import { Authentication, SaveAccessToken } from '@/domain/usecases'
 import Router from 'next/router'
 
 type Props = {
   validation: Validation
   authentication: Authentication
+  saveAccessToken: SaveAccessToken
 }
 
-const Login: React.FC<Props> = ({ validation, authentication }) => {
+const Login: React.FC<Props> = ({ validation, authentication, saveAccessToken }) => {
   const [state, setState] = useState({
     isLoading: false,
     email: '',
@@ -43,7 +43,7 @@ const Login: React.FC<Props> = ({ validation, authentication }) => {
         email: state.email,
         password: state.password
       })
-      Cookies.set('accessToken', account.accessToken)
+      await saveAccessToken.save(account.accessToken)
       Router.replace('/')
     } catch (error) {
       setState({ ...state, isLoading: false, mainError: error.message })
