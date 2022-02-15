@@ -166,6 +166,14 @@ describe('Login Component', () => {
     expect(Router.replace).toHaveBeenCalledWith('/')
   })
 
+  test('Should show error on alert if SaveAccessToken fails', async () => {
+    const { sut, saveAccessTokenMock } = makeSut()
+    const error = new InvalidCredentialsError()
+    jest.spyOn(saveAccessTokenMock, 'save').mockReturnValueOnce(Promise.reject(error))
+    await simulateValidSubmit(sut)
+    testElementExists(sut, 'alert-message')
+  })
+
   test('Should go to signup page', async () => {
     const { sut } = makeSut()
     const signup = sut.getByTestId('signup')
