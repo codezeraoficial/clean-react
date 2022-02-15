@@ -1,16 +1,17 @@
 import React from 'react'
-import '@testing-library/jest-dom/extend-expect'
-import Cookies from 'js-cookie'
-import faker from 'faker'
-import { render, RenderResult, fireEvent, cleanup, waitFor } from '@testing-library/react'
-import { ValidationStub, AuthenticationSpy } from '@/presentation/test'
 import { Login } from '@/presentation/pages'
-import Router from 'next/router'
 import { InvalidCredentialsError } from '@/domain/errors'
+import { ValidationStub, AuthenticationSpy, SaveAccessTokenMock } from '@/presentation/test'
+
+import { render, RenderResult, fireEvent, cleanup, waitFor } from '@testing-library/react'
+import '@testing-library/jest-dom/extend-expect'
+import faker from 'faker'
+import Router from 'next/router'
 
 type SutTypes = {
   sut: RenderResult
   authenticationSpy: AuthenticationSpy
+  saveAccessTokenMock: SaveAccessTokenMock
 }
 
 type SutParams = {
@@ -20,13 +21,15 @@ type SutParams = {
 const makeSut = (params?: SutParams): SutTypes => {
   const validationStub = new ValidationStub()
   const authenticationSpy = new AuthenticationSpy()
+  const saveAccessTokenMock = new SaveAccessTokenMock()
   validationStub.errorMessage = params?.validationError
   const sut = render(
-    <Login validation={validationStub} authentication={authenticationSpy} />
+    <Login validation={validationStub} authentication={authenticationSpy} saveAccessToken={saveAccessTokenMock}/>
   )
   return {
     sut,
-    authenticationSpy
+    authenticationSpy,
+    saveAccessTokenMock
   }
 }
 
@@ -156,13 +159,11 @@ describe('Login Component', () => {
     expect(authenticationSpy.callsCount).toBe(0)
   })
 
-  test('Should add accessToken to cookies on success', async () => {
-    const { sut, authenticationSpy } = makeSut()
-    const setSpy = jest.spyOn(Cookies, 'set')
+  test('Should call SaveAccessToken on success', async () => {
+    const { sut, authenticationSpy, saveAccessTokenMock } = makeSut()
     await simulateValidSubmit(sut)
-    expect(setSpy).toHaveBeenCalledWith('accessToken', authenticationSpy.account.accessToken)
+    expect(saveAccessTokenMock.accessToken).toBe(authenticationSpy.account.accessToken)
     expect(Router.replace).toHaveBeenCalledWith('/')
-    setSpy.mockRestore()
   })
 
   test('Should go to signup page', async () => {
